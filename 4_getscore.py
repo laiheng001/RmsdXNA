@@ -20,9 +20,9 @@ def process(csv_file):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="python generate_distance_feature.py -inp rdock_allresult_all.csv -cutoff 10 -output_folder 3_distance_rdock_docking -ncpus 8")
-    parser.add_argument("-folder_dock", type=str, default="docking", help = "Folder containing ligand features .csv files for prediction")
+    parser.add_argument("-folder_dock", type=str, default="example/docking", help = "Folder containing ligand features .csv files for prediction")
     parser.add_argument("-cutoff", type=float, default=8, help = "Cutoff distance for feature extraction")
-    parser.add_argument("-log", type=str, default="error_getscore.log", help = ".log file to record error")
+    parser.add_argument("-log", type=str, default="example/error_getscore.log", help = ".log file to record error")
     parser.add_argument("-model", type=str, default="xgboostfull.model", help = "Converted ligand atom_name")
     parser.add_argument("-column", type=str, default="feature_column.json", help = "json file containing dataset columns")
     parser.add_argument("-ncpus", type=int, default=1, help= "no. of CPU used to run jobs in parallel")

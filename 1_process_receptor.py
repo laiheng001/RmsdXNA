@@ -42,12 +42,12 @@ def get_receptor_column(residue_name, atom_name, atom_type, element_symbol):
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="python generate_distance_feature.py -inp rdock_allresult_all.csv -cutoff 10 -output_folder 3_distance_rdock_docking -ncpus 8")
-    parser.add_argument("-receptor", type=str, default="example_6x5n", help = "Input receptor filename ending with .pdb or .mol2 or without extension. The filename will also be used as the output .csv file.")
-    parser.add_argument("-an", type=str, default='dict_atomname.json', help = "atom_name of residues")
-    parser.add_argument("-crn", type=str, default="dict_residuename_convert.csv", help = "Converted residue_name")
-    parser.add_argument("-cran", type=str, default="dict_residueatom_convert.json", help = "Converted residue atom_name")
-    parser.add_argument("-can", type=str, default="dict_atomname_convert.json", help = "Converted atom_name")
-    parser.add_argument("-m", type=str, default="list_metal.json", help = "Metal atom_name list")
+    parser.add_argument("-receptor", type=str, default="example/example_6x5n", help = "Input receptor filename ending with .pdb or .mol2 or without extension. The filename will also be used as the output .csv file.")
+    parser.add_argument("-an", type=str, default='conversion_files/dict_atomname.json', help = "atom_name of residues")
+    parser.add_argument("-crn", type=str, default="conversion_files/dict_residuename_convert.csv", help = "Converted residue_name")
+    parser.add_argument("-cran", type=str, default="conversion_files/dict_residueatom_convert.json", help = "Converted residue atom_name")
+    parser.add_argument("-can", type=str, default="conversion_files/dict_atomname_convert.json", help = "Converted atom_name")
+    parser.add_argument("-m", type=str, default="conversion_files/list_metal.json", help = "Metal atom_name list")
     args = parser.parse_args()
 
     atomname = load_dict(args.an, 'atomname', alt_dict = {})

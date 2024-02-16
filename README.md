@@ -2,11 +2,15 @@
 
 # Installation
 
+Necessary software to be installed in your syste,:
+    Openbable: https://ccsb.scripps.edu/adfr/downloads/
+    
+
 Necessary packages should be installed to run the OnionNet model.
 
 Dependecies:
 
-    python >= 3.6
+    python >= 3.7
     numpy  
     scipy  
     pandas 
@@ -23,14 +27,18 @@ To install necessary environment, create a new env with conda commands
     cd onionnet
 
     # create a new pearsonal conda environment
-    conda create -n onionnet python=3.6
-    conda activate onionnet
+    conda create -n RmsdXNA python=3.7
+    conda activate RmsdXNA
 
     # install necessary packages
-    conda install -c anaconda scipy numpy pandas
-    conda install tensorflow
-    conda install -c omnia mdtraj
-    conda install -c openbabel openbabel
+    conda install -c bioconda rdock
+    conda install openbabel
+
+    conda install -c conda-forge -c schrodinger pymol-bundle
+    conda install conda-forge::biopanda
+    conda install scipy pandas numpy
+    conda install conda-forge::xgboost
+    
     
     # do some tests now
     python generate_features.py -h

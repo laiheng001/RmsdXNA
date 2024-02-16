@@ -42,7 +42,7 @@ def get_receptor_column(residue_name, atom_name, atom_type, element_symbol):
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="python generate_distance_feature.py -inp rdock_allresult_all.csv -cutoff 10 -output_folder 3_distance_rdock_docking -ncpus 8")
-    parser.add_argument("-receptor", type=str, default="6x5n_1", help = "Input receptor filename ending with .pdb or .mol2. The filename will also be used as the output .csv file.")
+    parser.add_argument("-receptor", type=str, default="example_6x5n", help = "Input receptor filename ending with .pdb or .mol2 or without extension. The filename will also be used as the output .csv file.")
     parser.add_argument("-an", type=str, default='dict_atomname.json', help = "atom_name of residues")
     parser.add_argument("-crn", type=str, default="dict_residuename_convert.csv", help = "Converted residue_name")
     parser.add_argument("-cran", type=str, default="dict_residueatom_convert.json", help = "Converted residue atom_name")
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     na_pdb =  PandasPdb().read_pdb(receptor_basename + ".pdb")
     na_mol2 = PandasMol2().read_mol2(receptor_basename + ".mol2")
 
-    df_na_mol2 = na_mol2.df[["x","y","z","atom_type"]]
+    df_na_mol2 = na_mol2.df[["atom_id", "x","y","z","atom_type"]]
     df_na_mol2.columns = ["x_coord","y_coord","z_coord","atom_type"]
     df_na_mol2 = df_na_mol2[~df_na_mol2['atom_type'].isin(['H', 'D'])]
     df_na_pdb = pd.concat([na_pdb.df["ATOM"], na_pdb.df["HETATM"]])[["atom_name","residue_name","x_coord","y_coord","z_coord","element_symbol"]]

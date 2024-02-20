@@ -64,7 +64,7 @@ def process(ligand_sdf):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="python generate_distance_feature.py -inp rdock_allresult_all.csv -cutoff 10 -output_folder 3_distance_rdock_docking -ncpus 8")
+    parser = argparse.ArgumentParser(description="Perform docking of ligands onto receptor at a position using rDock")
     parser.add_argument("-receptor", type=str, default="example/example_6x5n.mol2", help = "Input protonated receptor .mol2 receptor filename.")
     parser.add_argument("-folder_lig", type=str, default="example/ligand", help = "Folder containing ligand .sdf files for docking")
     parser.add_argument("-folder_dock", type=str, default="example/docking", help = "Output folder for docked ligand files")

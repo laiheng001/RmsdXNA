@@ -41,7 +41,7 @@ def get_receptor_column(residue_name, atom_name, atom_type, element_symbol):
             return "OTH," + element_symbol
     
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="python generate_distance_feature.py -inp rdock_allresult_all.csv -cutoff 10 -output_folder 3_distance_rdock_docking -ncpus 8")
+    parser = argparse.ArgumentParser(description="Create a biopandas .csv file for receptor that contains the label of the receptor atoms based on its residue and atom_name")
     parser.add_argument("-receptor", type=str, default="example/example_6x5n", help = "Input receptor filename ending with .pdb or .mol2 or without extension. The filename will also be used as the output .csv file.")
     parser.add_argument("-an", type=str, default='conversion_files/dict_atomname.json', help = "atom_name of residues")
     parser.add_argument("-crn", type=str, default="conversion_files/dict_residuename_convert.csv", help = "Converted residue_name")

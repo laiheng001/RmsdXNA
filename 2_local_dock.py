@@ -64,7 +64,7 @@ def process(ligand_sdf):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Perform docking of ligands onto receptor at a position using rDock")
+    parser = argparse.ArgumentParser(description="Perform docking of ligands onto receptor at a position using rDock and obtain .csv file containing the path to the ligand and receptor and the rDock score of the poses")
     parser.add_argument("-receptor", type=str, default="example/example_6x5n.mol2", help = "Input protonated receptor .mol2 receptor filename.")
     parser.add_argument("-folder_lig", type=str, default="example/ligand", help = "Folder containing ligand .sdf files for docking")
     parser.add_argument("-folder_dock", type=str, default="example/docking", help = "Output folder for docked ligand files")

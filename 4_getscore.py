@@ -19,7 +19,7 @@ def process(csv_file):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="python generate_distance_feature.py -inp rdock_allresult_all.csv -cutoff 10 -output_folder 3_distance_rdock_docking -ncpus 8")
+    parser = argparse.ArgumentParser(description="Obtain RmsdXNA score of the poses.")
     parser.add_argument("-folder_dock", type=str, default="example/docking", help = "Folder containing ligand features .csv files for prediction")
     parser.add_argument("-cutoff", type=float, default=8, help = "Cutoff distance for feature extraction")
     parser.add_argument("-log", type=str, default="example/error_getscore.log", help = ".log file to record error")

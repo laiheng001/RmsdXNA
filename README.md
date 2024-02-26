@@ -1,5 +1,8 @@
 # RmsdXNA
 
+> [!Note]
+> The trained model can be obtained upon request
+
 ## Installation
 
 Necessary packages should be installed to run the RmsdXNA model.

@@ -53,6 +53,8 @@ if __name__ == "__main__":
     atomname = load_dict(args.an, 'atomname', alt_dict = {})
     res_atom_dict = load_dict(args.cran, 'residueconvert', alt_dict = {})
     atomname_convert = load_dict(args.can, 'atomnameconvert', alt_dict = {})
+    
+    print(atomname)
 
     try:
         df_res=pd.read_csv(args.crn)
@@ -76,7 +78,7 @@ if __name__ == "__main__":
     na_mol2 = PandasMol2().read_mol2(receptor_basename + ".mol2")
 
     df_na_mol2 = na_mol2.df[["atom_id", "x","y","z","atom_type"]]
-    df_na_mol2.columns = ["x_coord","y_coord","z_coord","atom_type"]
+    df_na_mol2.columns = ["atom_id","x_coord","y_coord","z_coord","atom_type"]
     df_na_mol2 = df_na_mol2[~df_na_mol2['atom_type'].isin(['H', 'D'])]
     df_na_pdb = pd.concat([na_pdb.df["ATOM"], na_pdb.df["HETATM"]])[["atom_name","residue_name","x_coord","y_coord","z_coord","element_symbol"]]
     df_na_join = pd.merge(df_na_pdb, df_na_mol2, on = ["x_coord","y_coord","z_coord"])

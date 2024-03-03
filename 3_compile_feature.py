@@ -17,18 +17,20 @@ def process(ligand_csv):
     feature_error_list = []
     
     for index, row in df.iterrows():
-        try:
+        # try:
             ligand_mol2 = os.path.join(os.path.dirname(row['Ligand']), os.path.basename(row['Ligand']).replace(".sd", str(row["pose_no"]) + ".mol2"))
             cmd.reinitialize()
             cmd.load(ligand_mol2, "lig")
-            cmd.load(row['receptor'], "rec")
+            cmd.load(row['Receptor'], "rec")
             cmd.remove("elem H")
-            cmd.select("nearbylig", "(lig around {cutoff}) and rec")
+            cmd.select("nearbylig", f"(lig around {args.cutoff}) and rec")
             receptor_nearby_id = cmd.identify("nearbylig")
             df_na_nearby = df_na_join[df_na_join["atom_id"].isin(receptor_nearby_id)]
             
+            
             df_lig_mol2 = PandasMol2().read_mol2(ligand_mol2).df[["x","y","z","atom_type"]]
             df_lig_mol2_noH = df_lig_mol2[~df_lig_mol2['atom_type'].isin(['H', 'D'])] ###
+            df_na_nearby.reset_index(inplace=True)
             df_lig_mol2_noH.reset_index(inplace=True)
             
             label_value_current = label_value_dict.copy()
@@ -63,11 +65,11 @@ def process(ligand_csv):
                 df_out = pd.DataFrame([label_value_current])
                 df_out = df_out[['Name'] + feature_col]
                 df_all = pd.concat([df_all, df_out], ignore_index=True)
-        except:
-            with open(args.log, "a") as f:
-                f.write("{} missing\n".format(ligand_mol2))
-            f.close()
-            continue
+        # except Exception as e:
+        #     with open(args.log, "a") as f:
+        #         f.write("{} {}\n".format(ligand_mol2, e))
+        #     f.close()
+        #     continue
     if len(feature_error_list) > 0:
         with open(args.log, "a") as f:
             f.write("{} unseen feature: {}\n".format(os.path.basename(row['Ligand']).replace(".sd",""), set(feature_error_list)))
@@ -85,7 +87,7 @@ if __name__ == "__main__":
     parser.add_argument("-rec_csv", type=str, default="example/example_6x5n.csv", help = "Input receptor csv file containg labels.")
     parser.add_argument("-folder_dock", type=str, default="example/docking", help = "Folder containing ligand docking information .csv files")
     parser.add_argument("-cutoff", type=float, default=8, help = "Cutoff distance for feature extraction")
-    parser.add_argument("-log", type=str, default="example/error_feature.log", help = ".log file to record error")
+    parser.add_argument("-log", type=str, default="error_feature.log", help = ".log file to record error")
     parser.add_argument("-cla", type=str, default="conversion_files/dict_ligatom_convert.csv", help = "Converted ligand atom_name")
     parser.add_argument("-column", type=str, default="feature_column.json", help = "json file containing dataset columns")
     parser.add_argument("-ncpus", type=int, default=1, help= "no. of CPU used to run jobs in parallel")

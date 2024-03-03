@@ -39,10 +39,11 @@ def process(ligand_sdf):
     if (ligand_sdf.endswith(".sd") == False) and (ligand_sdf.endswith(".sdf") == False):
         print("convert ligand file to .sdf format".format(ligand_sdf))
         return
+    # os.chdir(pwd)
     ligand_name = os.path.basename(ligand_sdf).split(".")[0]
     ligand_docking_folder = os.path.join(args.folder_dock, ligand_name)
     os.makedirs(ligand_docking_folder, exist_ok=True)
-    os.chdir(ligand_docking_folder)
+    # os.chdir(ligand_docking_folder)
     os.system("rbdock -i {ligand} -o {output} -r {prm}  -p {dock_prm} -n {poses_no}".format(ligand = ligand_sdf, output = os.path.join(ligand_docking_folder, ligand_name + "_out"),
                                                                                               prm = prm_text_filepath, dock_prm = args.prm, poses_no = args.n_poses))
     # rbdock = "path/to/rbdock"
@@ -77,11 +78,12 @@ if __name__ == "__main__":
     parser.add_argument("-ncpus", type=int, default=1, help= "no. of CPU used to run jobs in parallel")
     args = parser.parse_args()
     
+    pwd = os.getcwd()
     os.makedirs(args.folder_dock, exist_ok=True)
     prm_text_filepath = args.receptor.replace(".mol2", ".prm")
-    center = (args.x,args.y,args.z)
-    parameter_text(args.receptor, center, args.cav, prm_text_filepath)
-    os.system("rbcavity -was -d -r {}".format(prm_text_filepath))
+    # center = (args.x,args.y,args.z)
+    # parameter_text(args.receptor, center, args.cav, prm_text_filepath)
+    # os.system("rbcavity -was -d -r {}".format(prm_text_filepath))
     
     ligand_list = glob(args.folder_lig + "/*.sdf")
     pool = Pool(args.ncpus)

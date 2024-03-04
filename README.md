@@ -54,3 +54,7 @@ Generate features of the poses. Output file name is pose_feature.csv.
 Obtain RmsdXNA score of the poses. Output file name is pose_score.csv.
 
     python 4_getscore.py -folder_dock directory/to/docked/poses/
+
+Finally, select the best pose from each ligand based on the RmsdXNA score, and compile them in a .csv file
+
+    for f in directory/to/docked/poses/*_score.csv; do sort -t "," -k 2 -n $f | head -n 2 | tail -n 1 >> compile_score.csv; done

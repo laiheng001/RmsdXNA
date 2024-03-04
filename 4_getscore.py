@@ -32,7 +32,7 @@ if __name__ == "__main__":
     os.environ["OMP_THREAD_LIMIT"] = "1"
     model.load_model(args.model)
 
-    with open(args.columns) as f_dict:
+    with open(args.column, "r") as f_dict:
         label_value_dict = json.load(f_dict)
         f_dict.close()
     feature_col = sorted(label_value_dict.keys())

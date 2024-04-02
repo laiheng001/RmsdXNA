@@ -53,8 +53,6 @@ if __name__ == "__main__":
     atomname = load_dict(args.an, 'atomname', alt_dict = {})
     res_atom_dict = load_dict(args.cran, 'residueconvert', alt_dict = {})
     atomname_convert = load_dict(args.can, 'atomnameconvert', alt_dict = {})
-    
-    print(atomname)
 
     try:
         df_res=pd.read_csv(args.crn)

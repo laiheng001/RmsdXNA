@@ -26,12 +26,9 @@ python >= 3.7
 
     # install necessary packages
     conda install -c bioconda rdock
-    conda install openbabel
     conda install -c conda-forge -c schrodinger pymol-bundle
-    conda install conda-forge::biopandas
-    conda install scipy pandas numpy
-    conda install scikit-learn
-    conda install conda-forge::xgboost
+    conda install biopandas xgboost openbabel -c conda-forge
+    conda install scipy pandas numpy scikit-learn
     
 
 ## Usage

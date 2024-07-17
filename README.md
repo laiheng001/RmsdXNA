@@ -25,7 +25,6 @@ python >= 3.7
     conda activate RmsdXNA
 
     # install necessary packages
-    conda install bioconda-legacy::perl
     conda install -c bioconda openbabel
     conda install -c bioconda rdock
     conda install -c conda-forge -c schrodinger pymol-bundle

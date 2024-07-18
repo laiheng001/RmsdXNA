@@ -10,7 +10,6 @@ Necessary packages should be installed to run the RmsdXNA model.
 Dependecies:
 
 python >= 3.7
-    rdock
     openbabel
     pymol
     biopandas
@@ -26,11 +25,16 @@ python >= 3.7
 
     # install necessary packages
     conda install -c bioconda openbabel
-    conda install -c bioconda rdock
     conda install -c conda-forge -c schrodinger pymol-bundle
     conda install biopandas xgboost -c conda-forge
     conda install scipy pandas numpy scikit-learn
     
+rDock can be installed using conda
+
+    conda install -c bioconda rDock
+    
+However, it is better to install rDock manually from https://github.com/CBDD/rDock
+
 
 ## Usage
 
@@ -47,9 +51,9 @@ Perform docking of ligands onto receptor at a position using rDock and obtain .c
 
 Generate features of the poses. Output file name is pose_feature.csv.
 
-    python 3_compile_feature.py -rec_csv path/to/receptor.csv -folder_dock directory/to/docked/poses/
+    python 3_compile_feature.py -receptor path/to/receptor -folder_dock directory/to/docked/poses/
 
-Obtain RmsdXNA score of the poses. Output file name is pose_score.csv.
+Obtain RmsdXNA score of the poses. Output file name is pose_score.csv in docked_poses folder
 
     python 4_getscore.py -folder_dock directory/to/docked/poses/
 

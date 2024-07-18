@@ -3,12 +3,13 @@ import pandas as pd
 from glob import glob
 from multiprocessing import Pool
 import argparse
+from pymol import cmd
 
-def parameter_text(receptor, center, prm_input_path, prm_output_path):
+def parameter_text(receptor, ligand, prm_input_path, prm_output_path):
     with open(prm_input_path, 'r') as f:
         prm_text = f.read()
         f.close()
-    prm_text = prm_text.replace("{center}",str(center).replace(" ",""))
+    prm_text = prm_text.replace("{ligand_sd}",ligand)
     prm_text = prm_text.replace("{receptor_mol2}",str(receptor))
     with open(prm_output_path, "w") as f_prm:
         f_prm.write(prm_text)
@@ -70,12 +71,10 @@ if __name__ == "__main__":
     parser.add_argument("-receptor", type=str, default="example/example_6x5n.mol2", help = "Input protonated receptor .mol2 receptor filename.")
     parser.add_argument("-folder_lig", type=str, default="example/ligand", help = "Folder containing ligand .sdf files for docking")
     parser.add_argument("-folder_dock", type=str, default="example/docking", help = "Output folder for docked ligand files")
-    parser.add_argument("-x", type=float, default=27.865, help = "x_coordinate of docking pocket center")
-    parser.add_argument("-y", type=float, default=47.968, help = "y_coordinate of docking pocket center")
-    parser.add_argument("-z", type=float, default=-45.837, help = "z_coordinate of docking pocket center")
-    parser.add_argument("-cav", type=str, default="rdock_parameter/cavity_two_sphere_site.txt", help = "cavity definition file")
+    parser.add_argument("-ref", type=str, help = "reference ligand")
+    parser.add_argument("-cav", type=str, default="rdock_parameter/cavity_reference_ligand.txt", help = "cavity definition file")
     parser.add_argument("-prm", type=str, default="rdock_parameter/dock.prm", help = "dock prm file")
-    parser.add_argument("-n_poses", type=int, default=20, help= "no. poses generated")
+    parser.add_argument("-n_poses", type=int, default=100, help= "no. poses generated")
     parser.add_argument("-ncpus", type=int, default=1, help= "no. of CPU used to run jobs in parallel")
     args = parser.parse_args()
     
@@ -84,10 +83,14 @@ if __name__ == "__main__":
     prm_text_filepath = args.receptor.split(".")[0] + ".prm"
     center = (args.x,args.y,args.z)
     receptor_mol2 = args.receptor.split(".")[0] + ".mol2"
-    parameter_text(receptor_mol2, center, args.cav, prm_text_filepath)
+    
+    ligand_sd = args.ref.split(".")[0] + ".sdf"
+    cmd.load(args.ref)
+    cmd.save(ligand_sd)
+    
+    parameter_text(receptor_mol2, ligand_sd, args.cav, prm_text_filepath)
     os.system("rbcavity -was -d -r {}".format(prm_text_filepath))
     
     ligand_list = glob(f"{args.folder_lig}/*.sdf")
-    print(len(ligand_list))
     pool = Pool(args.ncpus)
     pool.map(process, ligand_list)

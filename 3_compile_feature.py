@@ -84,7 +84,7 @@ def process(ligand_csv):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate features of the poses")
-    parser.add_argument("-rec_csv", type=str, default="example/example_6x5n.csv", help = "Input receptor csv file containg labels.")
+    parser.add_argument("-receptor", type=str, default="example/example_6x5n.pdb", help = "Input receptor file")
     parser.add_argument("-folder_dock", type=str, default="example/docking", help = "Folder containing ligand docking information .csv files")
     parser.add_argument("-cutoff", type=float, default=8, help = "Cutoff distance for feature extraction")
     parser.add_argument("-log", type=str, default="error_feature.log", help = ".log file to record error")
@@ -93,7 +93,9 @@ if __name__ == "__main__":
     parser.add_argument("-ncpus", type=int, default=1, help= "no. of CPU used to run jobs in parallel")
     args = parser.parse_args()
     
-    df_na_join = pd.read_csv(args.rec_csv)
+    
+    
+    df_na_join = pd.read_csv(args.receptor.split(".")[0] + ".csv")
 
     try:
         df_lig=pd.read_csv(args.cla)

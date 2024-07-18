@@ -23,6 +23,7 @@ if __name__ == "__main__":
     parser.add_argument("-folder_dock", type=str, default="example/docking", help = "Folder containing ligand features .csv files for prediction")
     parser.add_argument("-cutoff", type=float, default=8, help = "Cutoff distance for feature extraction")
     parser.add_argument("-log", type=str, default="example/error_getscore.log", help = ".log file to record error")
+    parser.add_argument("-o", type=str, default="allscores.csv", help = "compiled output filename for scores")
     parser.add_argument("-model", type=str, default="xgboostfull.model", help = "Converted ligand atom_name")
     parser.add_argument("-column", type=str, default="feature_column.json", help = "json file containing dataset columns")
     parser.add_argument("-ncpus", type=int, default=1, help= "no. of CPU used to run jobs in parallel")
@@ -40,7 +41,8 @@ if __name__ == "__main__":
     ligand_csv = glob(args.folder_dock + "/*_feature.csv")
     pool = Pool(args.ncpus)
     pool.map(process, ligand_csv)
-
+    
+    os.system("for f in {}/*_score.csv; do sort -t ',' -k 2 -n $f | head -n 2 | tail -n 1 >> {}; done".format(args.folder_dock, args.o))
 
     
 

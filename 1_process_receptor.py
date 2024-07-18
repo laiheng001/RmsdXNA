@@ -1,9 +1,9 @@
 
 import pandas as pd
+from pymol import cmd
 from biopandas.mol2 import PandasMol2
 from biopandas.pdb import PandasPdb
-import json
-import argparse
+import json, argparse
 
 def load_dict(json_file, json_label, alt_dict = {}):
     try:
@@ -41,7 +41,8 @@ def get_receptor_column(residue_name, atom_name, atom_type, element_symbol):
             return "OTH," + element_symbol
     
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Create a biopandas .csv file for receptor that contains the label of the receptor atoms based on its residue and atom_name")
+    parser = argparse.ArgumentParser(description="Create a biopandas .csv file for receptor that contains the label of the receptor atoms based on its residue and atom_name.\
+                                                  Usage: python 1_process_receptor.py -receptor path/to/receptor")
     parser.add_argument("-receptor", type=str, default="example/example_6x5n", help = "Input receptor filename ending with .pdb or .mol2 or without extension. The filename will also be used as the output .csv file.")
     parser.add_argument("-an", type=str, default='conversion_files/dict_atomname.json', help = "atom_name of residues")
     parser.add_argument("-crn", type=str, default="conversion_files/dict_residuename_convert.csv", help = "Converted residue_name")
@@ -72,6 +73,13 @@ if __name__ == "__main__":
         metal_list = ['Ag', 'Au', 'Ba', 'Ca', 'Cd', 'Co.oh', 'Cr.oh', 'Cs', 'Cu', 'Fe', 'K', 'Hg', 'Mg', 'Mn', 'Na', 'Ni', 'Pt', 'Rb', 'Rh', 'Ru', 'Sr', 'Tl', 'Zn']
         
     receptor_basename = args.receptor.split(".")[0]
+    
+    # Save receptor file as .pdb and .mol2 file
+    cmd.reinitialize()
+    cmd.load(args.receptor)
+    cmd.save(receptor_basename + ".pdb")
+    cmd.save(receptor_basename + ".mol2")
+    
     na_pdb =  PandasPdb().read_pdb(receptor_basename + ".pdb")
     na_mol2 = PandasMol2().read_mol2(receptor_basename + ".mol2")
 

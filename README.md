@@ -45,11 +45,11 @@ Code can be executed without any input to use the example receptor and ligand.
 
     python 1_process_receptor.py -receptor path/to/receptor
 
-2a.Perform docking of ligands onto receptor at a position using rDock and obtain .csv file containing the path to the ligand and receptor and the rDock score of the poses.
+2. a) Perform docking of ligands onto receptor at a position using rDock and obtain .csv file containing the path to the ligand and receptor and the rDock score of the poses.
 
     python 2_local_dock.py -receptor path/to/receptor -folder_lig directory/to/docking/library/ -folder_dock output/directory/ -x xcenter -y ycenter -z zcenter -n_poses 100 -ncpus no_of_core
 
-2b. If reference docking is preferred, use the command below
+2. b) If reference docking is preferred, use the command below
 
     python 2_ref_dock.py -receptor path/to/receptor -ref path/to/reference_ligand -folder_dock output/directory/ -n_poses 100 -ncpus no_of_core
 

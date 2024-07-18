@@ -49,6 +49,10 @@ Perform docking of ligands onto receptor at a position using rDock and obtain .c
 
     python 2_local_dock.py -receptor path/to/receptor -folder_lig directory/to/docking/library/ -folder_dock output/directory/ -x xcenter -y ycenter -z zcenter -n_poses 100 -ncpus no_of_core
 
+If reference docking is preferred, use the command below
+
+    python 2_ref_dock.py -receptor path/to/receptor -ref path/to/reference_ligand -folder_dock output/directory/ -n_poses 100 -ncpus no_of_core
+
 Generate features of the poses. Output file name is pose_feature.csv.
 
     python 3_compile_feature.py -receptor path/to/receptor -folder_dock directory/to/docked/poses/

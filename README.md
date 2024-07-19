@@ -17,6 +17,7 @@ python >= 3.7
     pandas
     scikit-learn
     xgboost
+    rxdock
 
     # create a new pearsonal conda environment
     conda create -n RmsdXNA python=3.7
@@ -26,16 +27,8 @@ python >= 3.7
     
     conda install biopandas xgboost scipy pandas numpy scikit-learn -c conda-forge
     conda install -c conda-forge pymol-open-source
+    conda install -c bioconda rxdock
 
-If you do not have OpenBabel, install ADFR from https://github.com/nanome-ai/plugin-docking/tree/master to access OpenBabel. Alternatively you can try the command below.
-
-    conda install -c bioconda rDock
-
-rDock can be installed using conda
-
-    conda install -c bioconda rDock
-    
-However, it is better to install rDock manually from https://github.com/CBDD/rDock
 
 
 

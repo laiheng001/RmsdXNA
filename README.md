@@ -10,7 +10,6 @@ Necessary packages should be installed to run the RmsdXNA model.
 Dependecies:
 
 python >= 3.7
-    openbabel
     pymol
     biopandas
     scipy
@@ -24,16 +23,21 @@ python >= 3.7
     conda activate RmsdXNA
 
     # install necessary packages
-    conda install -c bioconda openbabel
+    
     conda install -c conda-forge -c schrodinger pymol-bundle
     conda install biopandas xgboost -c conda-forge
     conda install scipy pandas numpy scikit-learn
-    
+
+If you do not have OpenBabel, install ADFR from https://github.com/nanome-ai/plugin-docking/tree/master to access OpenBabel. Alternatively you can try the command below.
+
+    conda install -c bioconda rDock
+
 rDock can be installed using conda
 
     conda install -c bioconda rDock
     
 However, it is better to install rDock manually from https://github.com/CBDD/rDock
+
 
 
 ## Usage

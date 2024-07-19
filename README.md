@@ -25,7 +25,7 @@ python >= 3.7
     # install necessary packages
     
     conda install biopandas xgboost scipy pandas numpy scikit-learn -c conda-forge
-    conda install -c conda-forge -c schrodinger pymol-bundle
+    conda install -c conda-forge pymol-open-source
 
 If you do not have OpenBabel, install ADFR from https://github.com/nanome-ai/plugin-docking/tree/master to access OpenBabel. Alternatively you can try the command below.
 

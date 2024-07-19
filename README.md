@@ -9,7 +9,7 @@ Necessary packages should be installed to run the RmsdXNA model.
 
 Dependecies:
 
-python >= 3.7
+python >= 3.8
     pymol
     biopandas
     scipy
@@ -20,7 +20,7 @@ python >= 3.7
     rxdock
 
     # create a new pearsonal conda environment
-    conda create -n RmsdXNA python=3.7
+    conda create -n RmsdXNA python=3.8
     conda activate RmsdXNA
 
     # install necessary packages

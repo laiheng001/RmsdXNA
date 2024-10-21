@@ -38,7 +38,10 @@ def get_receptor_column(residue_name, atom_name, atom_type, element_symbol):
         elif (atom_type == "O.co2") or (atom_type == "P.3"):
             return  "N," + atom_type
         else:
-            return "OTH," + element_symbol
+            if element_symbol in ["F", "CL", "BR", "I"]:
+                return "OTH,Hal"
+            else:
+                return "OTH," + element_symbol
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Create a biopandas .csv file for receptor that contains the label of the receptor atoms based on its residue and atom_name.\

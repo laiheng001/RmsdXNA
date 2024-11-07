@@ -48,15 +48,19 @@ Code can be executed without any input to use the example receptor and ligand.
    b) If reference docking is preferred, use the command below
 
         python 2_ref_dock.py -receptor path/to/receptor -ref path/to/reference_ligand -folder_dock output/directory/ -n_poses 100 -ncpus no_of_core
+   
+   c) If there is no need for docking, use the command below
 
-3. Generate features of the poses. Output file name is pose_feature.csv.
+        python 2_ref_dock.py -receptor path/to/receptor -ref path/to/reference_ligand -folder_dock output/directory/ -n_poses 0 -ncpus no_of_core -prm rdock_parameter/core.prm
+
+4. Generate features of the poses. Output file name is pose_feature.csv.
 
         python 3_compile_feature.py -receptor path/to/receptor -folder_dock directory/to/docked/poses/
 
-4. Obtain RmsdXNA score of the poses. Output file name is pose_score.csv in docked_poses folder
+5. Obtain RmsdXNA score of the poses. Output file name is pose_score.csv in docked_poses folder
 
         python 4_getscore.py -folder_dock directory/to/docked/poses/
 
-5. Finally, select the best pose from each ligand based on the RmsdXNA score, and compile them in a .csv file
+6. Finally, select the best pose from each ligand based on the RmsdXNA score, and compile them in a .csv file
 
         for f in directory/to/docked/poses/*_score.csv; do sort -t "," -k 2 -n $f | head -n 2 | tail -n 1 >> compile_score.csv; done

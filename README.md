@@ -51,7 +51,7 @@ Code can be executed without any input to use the example receptor and ligand.
    
    c) If there is no need for docking, use the command below
 
-        python 2_ref_dock.py -receptor path/to/receptor -ref path/to/reference_ligand -folder_dock output/directory/ -n_poses 0 -ncpus no_of_core -prm rdock_parameter/core.prm
+        python 2_ref_dock.py -receptor path/to/receptor -ref path/to/reference_ligand -folder_dock output/directory/ -n_poses 0 -ncpus no_of_core -prm rdock_parameter/score.prm
 
 4. Generate features of the poses. Output file name is pose_feature.csv.
 

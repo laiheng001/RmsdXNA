@@ -44,11 +44,15 @@ def process(ligand_sdf):
     ligand_docking_folder = os.path.join(args.folder_dock, ligand_name)
     os.makedirs(ligand_docking_folder, exist_ok=True)
     # os.chdir(ligand_docking_folder)
-    os.system("rbdock -i {ligand} -o {output} -r {prm}  -p {dock_prm} -n {poses_no}".format(ligand = ligand_sdf, output = os.path.join(ligand_docking_folder, ligand_name + "_out"),
+    if args.n_poses == 0: # Get score only, make sure -prm is rdock_parameter/core.prm
+        os.system("rbdock -i {ligand} -o {output} -r {prm}  -p {dock_prm}".format(rbdock = rbdock, ligand = ligand_sdf, output = os.path.join(ligand_docking_folder, ligand_name + "_out"),
+                                                                                  prm = prm_text_filepath, dock_prm = args.prm))
+    else: # Perform docking
+        os.system("rbdock -i {ligand} -o {output} -r {prm}  -p {dock_prm} -n {poses_no}".format(ligand = ligand_sdf, output = os.path.join(ligand_docking_folder, ligand_name + "_out"),
                                                                                               prm = prm_text_filepath, dock_prm = args.prm, poses_no = args.n_poses))
-    # rbdock = "path/to/rbdock"
-    # os.system("{rbdock} -i {ligand} -o {output} -r {prm}  -p {dock_prm} -n {poses_no}".format(rbdock = rbdock, ligand = ligand_sdf, output = os.path.join(ligand_docking_folder, ligand_name + "_out"),
-    #                                                                                           prm = prm_text_filepath, dock_prm = args.prm, poses_no = poses_no))
+        # rbdock = "path/to/rbdock"
+        # os.system("{rbdock} -i {ligand} -o {output} -r {prm}  -p {dock_prm} -n {poses_no}".format(rbdock = rbdock, ligand = ligand_sdf, output = os.path.join(ligand_docking_folder, ligand_name + "_out"),
+        #                                                                                           prm = prm_text_filepath, dock_prm = args.prm, poses_no = args.n_poses))
     dock_out_sd = os.path.join(ligand_docking_folder, ligand_name + "_out.sd")
     os.system("obabel -isd {} -omol2 -O {} -m".format(dock_out_sd, dock_out_sd.replace(".sd", '.mol2')))
 
